@@ -47,9 +47,7 @@ router.put(
 
 router.post(
     '/book-catalogue',
-    verifyToken('access', 'customer'),
     validateData(addUserCatalogueSchema, 'body'),
-    checkBookExists('book', 'add'),
     addBookToCatalogue
 )
 

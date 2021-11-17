@@ -36,7 +36,6 @@ const addUserCatalogue = (userId, bookId) => {
 }
 const updateBooks = async(body, id) => {
     const { title, author } = body
-    //const payload = [title, author]
     return db.one(queries.updateBook, [title, author, id])
 }
 module.exports = {

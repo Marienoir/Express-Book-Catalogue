@@ -1,11 +1,9 @@
-const { deleteBook } = require("../db/queries")
 const { createUser, validatePassword, createBooks, getAllBooks, removeBook, updateBooks, addUserCatalogue } = require("../services")
 
 const registerUser = async(req, res, next) => {
     try {
         const { body } = req
         const newUser  = await createUser(body)
-        //const { password, ...user } = newUser
 
         res.status(201).json({
             status: 'success',
@@ -93,7 +91,7 @@ const updateABook = async(req, res, next) => {
     try {
         const { body, params:{id} } = req
         const updatedBook  = await updateBooks(body, id)
-        console.log(body);
+
         res.status(200).json({
             status: 'success',
             message: 'Book updated successfully',
