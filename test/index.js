@@ -5,11 +5,8 @@ const uuid = require('uuid')
 const app = require('../src/index')
 const  loginUser = require('./helpers')
 
-const email= 'six@gmail.com'
-const password= '1111'
-
 describe("books", () =>{
-    it.skip('baseroute', (done)=>{
+    it('baseroute', (done)=>{
         request(app)
         .get('/')
         .expect(200)
@@ -19,7 +16,8 @@ describe("books", () =>{
             done()
         })
     })
-    it.skip('register', (done) => {
+    
+    it('register', (done) => {
         request(app)
         .post('/api/users/signup')
         .send({
@@ -44,7 +42,7 @@ describe("books", () =>{
         })
     })
    
-    it.skip('login', (done) => {
+    it('login', (done) => {
         request(app)
         .post('/api/users/login')
         .send({
@@ -86,11 +84,9 @@ describe("books", () =>{
                 expect(res.body.data).to.be.an('object')
                 done()
             })
-        }
-       
-        )
-        
+         })
     })
+    
     // it(`add-books`, async (res) => {
     //     await loginUser()
     //     request(app)
