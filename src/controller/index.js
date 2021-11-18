@@ -48,8 +48,9 @@ const postBooks = async(req, res, next) => {
         const { body } = req
         const book  = await createBooks (body)
 
-        res.status(201).json({
+        res.status(200).json({
             status: 'success',
+            code: 200,
             message: 'Books added successfully',
             data: book
         })
@@ -65,6 +66,7 @@ const fetchAllBooks = async(req, res) => {
 
         res.status(200).json({
             status: 'success',
+            code: 200,
             message: 'All Books fetched successfully',
             data: allBooks
         })
@@ -81,7 +83,8 @@ const removeBooks = async(req, res, next) => {
 
         res.status(200).json({
             status: 'success',
-            message: `Book ${id} deleted successfully`
+            code: 200,
+            message: `Book deleted successfully`
         })
     }
     catch (err) {
