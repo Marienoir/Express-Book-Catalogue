@@ -3,9 +3,13 @@ const request = require('supertest')
 
 const uuid = require('uuid')
 const app = require('../src/index')
+const  loginUser = require('./helpers')
+
+const email= 'six@gmail.com'
+const password= '1111'
 
 describe("books", () =>{
-    it('baseroute', (done)=>{
+    it.skip('baseroute', (done)=>{
         request(app)
         .get('/')
         .expect(200)
@@ -15,7 +19,7 @@ describe("books", () =>{
             done()
         })
     })
-    it('register', (done) => {
+    it.skip('register', (done) => {
         request(app)
         .post('/api/users/signup')
         .send({
@@ -40,7 +44,7 @@ describe("books", () =>{
         })
     })
    
-    it('login', (done) => {
+    it.skip('login', (done) => {
         request(app)
         .post('/api/users/login')
         .send({
@@ -57,27 +61,50 @@ describe("books", () =>{
         })
     })
 
-    it('add-books', (done) => {
-        //let token = res.body.token
+    it('login', (done) => {
         request(app)
         .post('/api/users/login')
         .send({
             email: 'six@gmail.com',
             password: '1111',
         })
-        .end((err, res) => {
-            let accessToken = res.body.data.token
-            
-        .set('Authorization', 'JWT' + accessToken)
-        .end((err, res)=> {
-            expect(res.body.message).to.equal('Books added successfully')
-            expect(res.body.code).to.equal(201)
-            expect(res.body.status).to.equal('success')
-            expect(res.body.data).to.be.an('object')
-            done()
+        it('add-books', (done) => {
+            request(app)
+            .post('/api/admin/add-books')
+            .send({
+                title: "test",
+                author: "tester"
             })
-        })
+            .set(
+                'Authorization',
+                `Bearer ${res.body.token}`
+            )
+            .end((err, res)=> {
+                console.log(res.body.data.token)
+                expect(res.body.code).to.equal(201)
+                expect(res.body.status).to.equal('success')
+                expect(res.body.data).to.be.an('object')
+                done()
+            })
+        }
+       
+        )
+        
     })
- 
+    // it(`add-books`, async (res) => {
+    //     await loginUser()
+    //     request(app)
+    //         .post('/api/admin/add-books')
+    //         .send({
+    //             title: "test",
+    //             author: "tester"
+    //         })
+    //         .set(
+    //             'Authorization',
+    //             `Bearer ${res.body.token}`,
+    //         )
+    //         .expect(200)
+          
+    // });
     
 })
